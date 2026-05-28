@@ -12,7 +12,7 @@
     "allowSyntheticDefaultImports": true,
     "target": "ES2023",
     "sourceMap": true,
-    "rootDir": "./src",
+    "rootDir": "../nest-clean",
     "outDir": "./dist",
     "paths": {
       "@components/*": ["./src/components/*"]
