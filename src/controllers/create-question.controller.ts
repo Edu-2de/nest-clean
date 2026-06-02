@@ -1,11 +1,11 @@
+import { CurrentUser } from '@/auth/current-user.decorator';
+import type { TokenPayload } from '@/auth/jwt.strategy';
+import { ZodValidationPipe } from '@/pipes/zod-validation.pipe';
+import { PrismaService } from '@/prisma/prisma.service';
 import { Body, Controller, Post, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { randomUUID } from 'crypto';
 import z from 'zod';
-import { CurrentUser } from '../auth/current-user.decorator';
-import type { TokenPayload } from '../auth/jwt.strategy';
-import { ZodValidationPipe } from '../pipes/zod-validation.pipe';
-import { PrismaService } from '../prisma/prisma.service';
 
 const createQuestionBodySchema = z.object({
   title: z.string(),
