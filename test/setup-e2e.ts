@@ -23,15 +23,10 @@ beforeAll(async () => {
 
   process.env.DATABASE_URL = databaseURL;
 
-  const adapter = new PrismaPg({ connectionString: databaseURL });
-  prisma = new PrismaClient({ adapter });
+  const adapter = await new PrismaPg({ connectionString: databaseURL });
+  prisma = await new PrismaClient({ adapter });
 
-  execSync('pnpm prisma migrate deploy', {
-    env: {
-      ...process.env,
-      DATABASE_URL: databaseURL,
-    },
-  });
+  execSync('npx prisma migrate dev');
 });
 
 afterAll(async () => {
