@@ -35,9 +35,6 @@ importers:
       bcryptjs:
         specifier: ^3.0.3
         version: 3.0.3
-      dotenv:
-        specifier: ^17.4.2
-        version: 17.4.2
       passport-jwt:
         specifier: ^4.0.1
         version: 4.0.1
@@ -81,6 +78,9 @@ importers:
       '@vitest/coverage-v8':
         specifier: ^4.1.8
         version: 4.1.8(vitest@4.1.8)
+      dotenv:
+        specifier: ^17.4.2
+        version: 17.4.2
       prettier:
         specifier: ^3.4.2
         version: 3.8.3
