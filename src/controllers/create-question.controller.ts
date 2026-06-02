@@ -1,7 +1,9 @@
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
-import z from 'zod';
-import { PrismaService } from '../prisma/prisma.service';
+import { Controller, Post, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import z from 'zod';
+import { CurrentUser } from '../auth/current-user.decorator';
+import type { TokenPayload } from '../auth/jwt.strategy';
+import { PrismaService } from '../prisma/prisma.service';
 
 const createQuestionSchema = z.object({
   title: z.string(),
@@ -16,7 +18,7 @@ export class CreateQuestionController {
   constructor(private prisma: PrismaService) {}
 
   @Post()
-  async handle(@Body() body: CreateQuestionBodySchema) {
-    const { title, description } = body;
+  async handle(@CurrentUser() user: TokenPayload) {
+    console.log(user);
   }
 }
