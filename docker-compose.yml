@@ -1,15 +1,27 @@
-version: '3.8'
-
 services:
-  postgres:
-    container_name: nest-clean-pg
-    image: postgres
-    ports:
-      - 5432:5432
+  app:
+    container_name: nest-clean-app
+    build:
+      context: .
+      dockerfile: Dockerfile
     environment:
-      POSTGRES_USER: myuser
-      POSTGRES_PASSWORD: senha
-      POSTGRES_DB: nest-clean
-      PGDATA: /data/postgres
-    volumes:
-      - ./data/pg:/data/postgres
+      DATABASE_URL: 'postgresql://nest_clean:senha@shared-postgres:5432/nest_clean?schema=public'
+      JWT_PRIVATE_KEY: ${JWT_PRIVATE_KEY}
+      JWT_PUBLIC_KEY: ${JWT_PUBLIC_KEY}
+      PORT: 3333
+    restart: unless-stopped
+    networks:
+      - web
+      - database
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.nest-clean.rule=PathPrefix(`/nest-clean`)'
+      - 'traefik.http.routers.nest-clean.entrypoints=web'
+      - 'traefik.http.services.nest-clean.loadbalancer.server.port=3333'
+      - 'traefik.docker.network=web'
+
+networks:
+  web:
+    external: true
+  database:
+    external: true
