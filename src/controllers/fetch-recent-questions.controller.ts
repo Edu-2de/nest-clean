@@ -21,7 +21,7 @@ export class FetchRecentQuestionsController {
 
   @Get()
   async handle(@Query('page', queryValidationPipe) page: PageQueryParamSchema) {
-    const take = 1
+    const take = 20
     const skip = (page - 1) * take
 
     const questions = await this.prisma.question.findMany({
