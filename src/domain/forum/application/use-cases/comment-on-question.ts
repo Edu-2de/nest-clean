@@ -4,6 +4,7 @@ import { QuestionComment } from '../../enterprise/entities/question-comment.js';
 import type { QuestionCommentsRepository } from '../repositories/question-comments-repository.js';
 import type { QuestionsRepository } from '../repositories/questions-repository.js';
 import { ResourceNotFoundError } from './errors/resource-not-found-error.js';
+import { Injectable } from '@nestjs/common';
 
 interface CommentOnQuestionUseCaseRequest {
   questionId: string;
@@ -18,6 +19,7 @@ type CommentOnQuestionUseCaseResponse = Either<
   }
 >;
 
+@Injectable()
 export class CommentOnQuestionUseCase {
   constructor(
     private questionsRepository: QuestionsRepository,

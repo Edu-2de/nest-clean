@@ -1,21 +1,23 @@
-import { left, right, type Either } from '@/core/either.js';
-import type { Answer } from '../../enterprise/entities/answer.js';
-import type { AnswersRepository } from '../repositories/answers-repository.js';
-import type { QuestionsRepository } from '../repositories/questions-repository.js';
-import { ResourceNotFoundError } from './errors/resource-not-found-error.js';
+import { left, right, type Either } from '@/core/either.js'
+import type { Answer } from '../../enterprise/entities/answer.js'
+import type { AnswersRepository } from '../repositories/answers-repository.js'
+import type { QuestionsRepository } from '../repositories/questions-repository.js'
+import { ResourceNotFoundError } from './errors/resource-not-found-error.js'
+import { Injectable } from '@nestjs/common'
 
 interface FetchQuestionAnswersRequest {
-  questionId: string;
-  page: number;
+  questionId: string
+  page: number
 }
 
 type FetchQuestionAnswersResponse = Either<
   ResourceNotFoundError,
   {
-    answers: Answer[];
+    answers: Answer[]
   }
->;
+>
 
+@Injectable()
 export class FetchQuestionAnswers {
   constructor(
     private answersRepository: AnswersRepository,
@@ -26,16 +28,16 @@ export class FetchQuestionAnswers {
     questionId,
     page,
   }: FetchQuestionAnswersRequest): Promise<FetchQuestionAnswersResponse> {
-    const question = await this.questionsRepository.findById(questionId);
+    const question = await this.questionsRepository.findById(questionId)
     if (!question) {
-      return left(new ResourceNotFoundError());
+      return left(new ResourceNotFoundError())
     }
 
     const answers = await this.answersRepository.findManyByQuestionId(
       questionId,
       { page },
-    );
+    )
 
-    return right({ answers });
+    return right({ answers })
   }
 }
