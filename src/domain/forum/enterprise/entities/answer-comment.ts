@@ -1,15 +1,15 @@
-import type { UniqueEntityId } from '@/core/entities/unique-entity-id.js';
-import type { Optional } from '@/core/types/optional.js';
-import { Comment, type CommentProps } from './comment.js';
+import type { UniqueEntityId } from '@/core/entities/unique-entity-id'
+import type { Optional } from '@/core/types/optional'
+import { Comment, type CommentProps } from './comment'
 
 export interface AnswerCommentProps extends CommentProps {
-  authorId: UniqueEntityId;
-  answerId: UniqueEntityId;
+  authorId: UniqueEntityId
+  answerId: UniqueEntityId
 }
 
 export class AnswerComment extends Comment<AnswerCommentProps> {
   get answerId() {
-    return this.props.answerId;
+    return this.props.answerId
   }
 
   static create(
@@ -22,8 +22,8 @@ export class AnswerComment extends Comment<AnswerCommentProps> {
         createdAt: props.createdAt ?? new Date(),
       },
       id,
-    );
+    )
 
-    return answerComment;
+    return answerComment
   }
 }

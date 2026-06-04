@@ -1,11 +1,11 @@
-import type { PaginationParams } from '@/core/repositories/pagination-params.js';
-import type { Question } from '../../enterprise/entities/question.js';
+import type { PaginationParams } from '@/core/repositories/pagination-params'
+import type { Question } from '../../enterprise/entities/question'
 
-export interface QuestionsRepository {
-  findById(id: string): Promise<Question | null>;
-  findBySlug(slug: string): Promise<Question | null>;
-  findManyByRecent(params: PaginationParams): Promise<Question[]>;
-  save(question: Question): Promise<void>;
-  create(question: Question): Promise<void>;
-  delete(question: Question): Promise<void>;
+export abstract class QuestionsRepository {
+  abstract findById(id: string): Promise<Question | null>
+  abstract findBySlug(slug: string): Promise<Question | null>
+  abstract findManyByRecent(params: PaginationParams): Promise<Question[]>
+  abstract save(question: Question): Promise<void>
+  abstract create(question: Question): Promise<void>
+  abstract delete(question: Question): Promise<void>
 }

@@ -1,10 +1,9 @@
-import { left, right, type Either } from '@/core/either.js'
-import type { Question } from '../../enterprise/entities/question.js'
-import type { AnswersRepository } from '../repositories/answers-repository.js'
-import type { QuestionsRepository } from '../repositories/questions-repository.js'
-import { NotAllowedError } from './errors/not-allowed-error.js'
-import { ResourceNotFoundError } from './errors/resource-not-found-error.js'
-import { Injectable } from '@nestjs/common'
+import { left, right, type Either } from '@/core/either'
+import type { Question } from '../../enterprise/entities/question'
+import type { AnswersRepository } from '../repositories/answers-repository'
+import type { QuestionsRepository } from '../repositories/questions-repository'
+import { NotAllowedError } from './errors/not-allowed-error'
+import { ResourceNotFoundError } from './errors/resource-not-found-error'
 
 interface ChoseQuestionBestAnswerUseCaseRequest {
   answerId: string
@@ -18,7 +17,6 @@ type ChoseQuestionBestAnswerUseCaseResponse = Either<
   }
 >
 
-@Injectable()
 export class ChoseQuestionBestAnswerUseCase {
   constructor(
     private questionsRepository: QuestionsRepository,

@@ -1,10 +1,9 @@
-import { left, right, type Either } from '@/core/either.js'
-import { UniqueEntityId } from '@/core/entities/unique-entity-id.js'
-import { AnswerComment } from '../../enterprise/entities/answer-comment.js'
-import type { AnswerCommentsRepository } from '../repositories/answer-comments-repository.ts'
-import type { AnswersRepository } from '../repositories/answers-repository.js'
-import { ResourceNotFoundError } from './errors/resource-not-found-error.js'
-import { Injectable } from '@nestjs/common'
+import { left, right, type Either } from '@/core/either'
+import { UniqueEntityId } from '@/core/entities/unique-entity-id'
+import { AnswerComment } from '../../enterprise/entities/answer-comment'
+import type { AnswerCommentsRepository } from '../repositories/answer-comments-repository'
+import type { AnswersRepository } from '../repositories/answers-repository'
+import { ResourceNotFoundError } from './errors/resource-not-found-error'
 
 interface CommentOnAnswerUseCaseRequest {
   answerId: string
@@ -19,7 +18,6 @@ type CommentOnAnswerUseCaseResponse = Either<
   }
 >
 
-@Injectable()
 export class CommentOnAnswerUseCase {
   constructor(
     private answersRepository: AnswersRepository,

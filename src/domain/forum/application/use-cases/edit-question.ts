@@ -1,13 +1,12 @@
-import { left, right, type Either } from '@/core/either.js'
-import { UniqueEntityId } from '@/core/entities/unique-entity-id.js'
-import { QuestionAttachmentList } from '../../enterprise/entities/question-attachment-list.js'
-import { QuestionAttachment } from '../../enterprise/entities/question-attachment.js'
-import type { Question } from '../../enterprise/entities/question.js'
-import type { QuestionAttachmentsRepository } from '../repositories/question-attachments-repository.js'
-import type { QuestionsRepository } from '../repositories/questions-repository.js'
-import { NotAllowedError } from './errors/not-allowed-error.js'
-import { ResourceNotFoundError } from './errors/resource-not-found-error.js'
-import { Injectable } from '@nestjs/common'
+import { left, right, type Either } from '@/core/either'
+import { UniqueEntityId } from '@/core/entities/unique-entity-id'
+import type { Question } from '../../enterprise/entities/question'
+import { QuestionAttachment } from '../../enterprise/entities/question-attachment'
+import { QuestionAttachmentList } from '../../enterprise/entities/question-attachment-list'
+import type { QuestionAttachmentsRepository } from '../repositories/question-attachments-repository'
+import type { QuestionsRepository } from '../repositories/questions-repository'
+import { NotAllowedError } from './errors/not-allowed-error'
+import { ResourceNotFoundError } from './errors/resource-not-found-error'
 
 interface EditQuestionUseCaseRequest {
   authorId: string
@@ -24,7 +23,6 @@ type EditQuestionUseCaseResponse = Either<
   }
 >
 
-@Injectable()
 export class EditQuestionUseCase {
   constructor(
     private questionsRepository: QuestionsRepository,

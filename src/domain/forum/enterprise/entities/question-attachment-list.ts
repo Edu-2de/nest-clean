@@ -1,8 +1,8 @@
-import { WatchedList } from '@/core/entities/watched-list.js';
-import type { QuestionAttachment } from './question-attachment.js';
+import { WatchedList } from '@/core/entities/watched-list'
+import type { QuestionAttachment } from './question-attachment'
 
 export class QuestionAttachmentList extends WatchedList<QuestionAttachment> {
   compareItems(a: QuestionAttachment, b: QuestionAttachment): boolean {
-    return a.attachmentId.equals(b.attachmentId);
+    return a.attachmentId.equals(b.attachmentId)
   }
 }

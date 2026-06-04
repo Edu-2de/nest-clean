@@ -1,25 +1,23 @@
-import { left, right, type Either } from '@/core/either.js';
-import { UniqueEntityId } from '@/core/entities/unique-entity-id.js';
-import { QuestionComment } from '../../enterprise/entities/question-comment.js';
-import type { QuestionCommentsRepository } from '../repositories/question-comments-repository.js';
-import type { QuestionsRepository } from '../repositories/questions-repository.js';
-import { ResourceNotFoundError } from './errors/resource-not-found-error.js';
-import { Injectable } from '@nestjs/common';
+import { left, right, type Either } from '@/core/either'
+import { UniqueEntityId } from '@/core/entities/unique-entity-id'
+import { QuestionComment } from '../../enterprise/entities/question-comment'
+import type { QuestionCommentsRepository } from '../repositories/question-comments-repository'
+import type { QuestionsRepository } from '../repositories/questions-repository'
+import { ResourceNotFoundError } from './errors/resource-not-found-error'
 
 interface CommentOnQuestionUseCaseRequest {
-  questionId: string;
-  authorId: string;
-  content: string;
+  questionId: string
+  authorId: string
+  content: string
 }
 
 type CommentOnQuestionUseCaseResponse = Either<
   ResourceNotFoundError,
   {
-    questionComment: QuestionComment;
+    questionComment: QuestionComment
   }
->;
+>
 
-@Injectable()
 export class CommentOnQuestionUseCase {
   constructor(
     private questionsRepository: QuestionsRepository,
@@ -31,17 +29,17 @@ export class CommentOnQuestionUseCase {
     authorId,
     content,
   }: CommentOnQuestionUseCaseRequest): Promise<CommentOnQuestionUseCaseResponse> {
-    const questionFound = this.questionsRepository.findById(questionId);
-    if (!questionFound) return left(new ResourceNotFoundError());
+    const questionFound = this.questionsRepository.findById(questionId)
+    if (!questionFound) return left(new ResourceNotFoundError())
 
     const questionComment = QuestionComment.create({
       authorId: new UniqueEntityId(authorId),
       content,
       questionId: new UniqueEntityId(questionId),
-    });
+    })
 
-    await this.questionCommentsRepository.create(questionComment);
+    await this.questionCommentsRepository.create(questionComment)
 
-    return right({ questionComment });
+    return right({ questionComment })
   }
 }

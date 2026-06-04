@@ -1,9 +1,8 @@
-import { left, right, type Either } from '@/core/either.js'
-import type { Answer } from '../../enterprise/entities/answer.js'
-import type { AnswersRepository } from '../repositories/answers-repository.js'
-import type { QuestionsRepository } from '../repositories/questions-repository.js'
-import { ResourceNotFoundError } from './errors/resource-not-found-error.js'
-import { Injectable } from '@nestjs/common'
+import { left, right, type Either } from '@/core/either'
+import type { Answer } from '../../enterprise/entities/answer'
+import type { AnswersRepository } from '../repositories/answers-repository'
+import type { QuestionsRepository } from '../repositories/questions-repository'
+import { ResourceNotFoundError } from './errors/resource-not-found-error'
 
 interface FetchQuestionAnswersRequest {
   questionId: string
@@ -17,7 +16,6 @@ type FetchQuestionAnswersResponse = Either<
   }
 >
 
-@Injectable()
 export class FetchQuestionAnswers {
   constructor(
     private answersRepository: AnswersRepository,

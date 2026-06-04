@@ -1,20 +1,20 @@
-import { left, right, type Either } from '@/core/either.js';
-import { NotAllowedError } from '@/domain/forum/application/use-cases/errors/not-allowed-error.js';
-import { ResourceNotFoundError } from '@/domain/forum/application/use-cases/errors/resource-not-found-error.js';
-import { Notification } from '../../enterprise/entities/notification.js';
-import type { NotificationsRepository } from '../repositories/notifications-repository.js';
+import { left, right, type Either } from '@/core/either'
+import { NotAllowedError } from '@/domain/forum/application/use-cases/errors/not-allowed-error'
+import { ResourceNotFoundError } from '@/domain/forum/application/use-cases/errors/resource-not-found-error'
+import { Notification } from '../../enterprise/entities/notification'
+import type { NotificationsRepository } from '../repositories/notifications-repository'
 
 interface ReadNotificationUseCaseRequest {
-  recipientId: string;
-  notificationId: string;
+  recipientId: string
+  notificationId: string
 }
 
 type ReadNotificationUseCaseResponse = Either<
   ResourceNotFoundError | NotAllowedError,
   {
-    notification: Notification;
+    notification: Notification
   }
->;
+>
 
 export class ReadNotificationUseCase {
   constructor(private notificationsRepository: NotificationsRepository) {}
@@ -24,20 +24,20 @@ export class ReadNotificationUseCase {
     notificationId,
   }: ReadNotificationUseCaseRequest): Promise<ReadNotificationUseCaseResponse> {
     const notification =
-      await this.notificationsRepository.findById(notificationId);
+      await this.notificationsRepository.findById(notificationId)
 
     if (!notification) {
-      return left(new ResourceNotFoundError());
+      return left(new ResourceNotFoundError())
     }
 
     if (recipientId !== notification.recipientId.toString()) {
-      return left(new NotAllowedError());
+      return left(new NotAllowedError())
     }
 
-    notification.read();
+    notification.read()
 
-    await this.notificationsRepository.create(notification);
+    await this.notificationsRepository.create(notification)
 
-    return right({ notification });
+    return right({ notification })
   }
 }

@@ -1,13 +1,13 @@
-import type { PaginationParams } from '@/core/repositories/pagination-params.js';
-import type { Answer } from '@/domain/forum/enterprise/entities/answer.js';
+import type { PaginationParams } from '@/core/repositories/pagination-params'
+import type { Answer } from '@/domain/forum/enterprise/entities/answer'
 
-export interface AnswersRepository {
-  findById(id: string): Promise<Answer | null>;
-  findManyByQuestionId(
+export abstract class AnswersRepository {
+  abstract findById(id: string): Promise<Answer | null>
+  abstract findManyByQuestionId(
     questionId: string,
     params: PaginationParams,
-  ): Promise<Answer[]>;
-  save(answer: Answer): Promise<void>;
-  create(answer: Answer): Promise<void>;
-  delete(answer: Answer): Promise<void>;
+  ): Promise<Answer[]>
+  abstract save(answer: Answer): Promise<void>
+  abstract create(answer: Answer): Promise<void>
+  abstract delete(answer: Answer): Promise<void>
 }

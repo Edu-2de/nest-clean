@@ -1,10 +1,10 @@
-import { right, type Either } from '@/core/either.js'
-import { UniqueEntityId } from '@/core/entities/unique-entity-id.js'
-import { QuestionAttachmentList } from '../../enterprise/entities/question-attachment-list.js'
-import { QuestionAttachment } from '../../enterprise/entities/question-attachment.js'
-import { Question } from '../../enterprise/entities/question.js'
-import type { QuestionsRepository } from '../repositories/questions-repository.js'
+import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 import { Injectable } from '@nestjs/common'
+import { Either, right } from '../../../../core/either'
+import { Question } from '../../enterprise/entities/question'
+import { QuestionAttachment } from '../../enterprise/entities/question-attachment'
+import { QuestionAttachmentList } from '../../enterprise/entities/question-attachment-list'
+import type { QuestionsRepository } from '../repositories/questions-repository'
 
 interface CreateQuestionUseCaseRequest {
   authorId: string
