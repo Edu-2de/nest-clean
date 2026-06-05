@@ -1,4 +1,4 @@
-@basUrl = http://localhost:3333
+@basUrl = http://localhost:3333/nest-clean
 @authToken ={{authenticate.response.body.access_token}}
 
 
@@ -7,9 +7,9 @@ POST {{basUrl}}/accounts
 Content-Type: application/json
 
 {
-  "name": "",
-  "email": "email",
-  "password": ""
+  "name": "Diego",
+  "email": "diego5@gmail.com.br",
+  "password": "123456"
 }
 
 ###
@@ -32,7 +32,7 @@ Content-Type: application/json
 Authorization: Bearer {{authToken}}
 
 {
-  "title": "nova pergunta 2",
+  "title": "nova pergunta 5",
   "content": "conteúdo"
 }
 
