@@ -41,7 +41,7 @@ export class RegisterStudentUseCase {
       password: hashedPassword,
     })
 
-    await this.execute(student)
+    await this.studentRepository.create(student)
 
     return right({ student })
   }
