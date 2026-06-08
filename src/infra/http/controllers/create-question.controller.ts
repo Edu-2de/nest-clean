@@ -2,8 +2,7 @@ import { CreateQuestionUseCase } from '@/domain/forum/application/use-cases/crea
 import { CurrentUser } from '@/infra/auth/current-user.decorator'
 import type { TokenPayload } from '@/infra/auth/jwt.strategy'
 import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation.pipe'
-import { Body, Controller, Post, UseGuards } from '@nestjs/common'
-import { AuthGuard } from '@nestjs/passport'
+import { BadRequestException, Body, Controller, Post } from '@nestjs/common'
 import z from 'zod'
 
 const createQuestionBodySchema = z.object({
@@ -16,7 +15,6 @@ const bodyValidationPipe = new ZodValidationPipe(createQuestionBodySchema)
 type CreateQuestionBodySchema = z.infer<typeof createQuestionBodySchema>
 
 @Controller('/questions')
-@UseGuards(AuthGuard('jwt'))
 export class CreateQuestionController {
   constructor(private createQuestion: CreateQuestionUseCase) {}
 
@@ -27,11 +25,14 @@ export class CreateQuestionController {
   ) {
     const { title, content } = body
     const userId = user.sub
-    await this.createQuestion.execute({
+    const result = await this.createQuestion.execute({
       title,
       content,
       authorId: userId,
       attachmentsIds: [],
     })
+    if (result.isLeft()) {
+      throw new BadRequestException()
+    }
   }
 }
