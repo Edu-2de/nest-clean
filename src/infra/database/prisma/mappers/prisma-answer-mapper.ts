@@ -1,6 +1,6 @@
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 import { Answer } from '@/domain/forum/enterprise/entities/answer'
-import { Answer as PrismaAnswer } from '@/generated/prisma/client'
+import { Prisma, Answer as PrismaAnswer } from '@/generated/prisma/client'
 
 export class PrismaAnswerMapper {
   static toDomain(answer: PrismaAnswer): Answer {
@@ -14,5 +14,14 @@ export class PrismaAnswerMapper {
       },
       new UniqueEntityId(answer.id),
     )
+  }
+
+  static toPrisma(answer: Answer): Prisma.AnswerUncheckedCreateInput {
+    return {
+      id: answer.id.toString(),
+      content: answer.content,
+      authorId: answer.authorId.toString(),
+      questionId: answer.questionId.toString(),
+    }
   }
 }
