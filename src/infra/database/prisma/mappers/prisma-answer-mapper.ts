@@ -3,16 +3,16 @@ import { Answer } from '@/domain/forum/enterprise/entities/answer'
 import { Prisma, Answer as PrismaAnswer } from '@/generated/prisma/client'
 
 export class PrismaAnswerMapper {
-  static toDomain(answer: PrismaAnswer): Answer {
+  static toDomain(raw: PrismaAnswer): Answer {
     return Answer.create(
       {
-        authorId: new UniqueEntityId(answer.authorId),
-        content: answer.content,
-        questionId: new UniqueEntityId(answer.questionId),
-        createdAt: answer.createdAt,
-        updatedAt: answer.updatedAt,
+        authorId: new UniqueEntityId(raw.authorId),
+        content: raw.content,
+        questionId: new UniqueEntityId(raw.questionId),
+        createdAt: raw.createdAt,
+        updatedAt: raw.updatedAt,
       },
-      new UniqueEntityId(answer.id),
+      new UniqueEntityId(raw.id),
     )
   }
 
