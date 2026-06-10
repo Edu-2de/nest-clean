@@ -24,10 +24,13 @@ export class PrismaQuestionCommentsRepository implements QuestionCommentsReposit
     { page }: PaginationParams,
   ): Promise<QuestionComment[]> {
     const comments = await this.prisma.comment.findMany({
-      take: 10,
-      skip: (page - 1) * 10,
+      take: 20,
+      skip: (page - 1) * 20,
       where: {
         questionId,
+      },
+      orderBy: {
+        createdAt: 'desc',
       },
     })
     return comments.map(PrismaQuestionCommentMapper.toDomain)
