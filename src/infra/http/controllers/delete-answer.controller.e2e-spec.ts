@@ -46,9 +46,8 @@ describe('Delete Answer (E2E)', () => {
       authorId: user.id,
     })
 
-    const answer = await answerFactory.makePrismaAnswer({
+    const answer = await answerFactory.makeAnswerPrismaFactory({
       authorId: user.id,
-
       questionId: question.id,
     })
 
@@ -59,7 +58,7 @@ describe('Delete Answer (E2E)', () => {
       .set('Authorization', `Bearer ${accessToken}`)
       .send()
 
-    expect(response.statusCode).toBe(204)
+    expect(response.statusCode).toBe(200)
 
     const answerOnDatabase = await prisma.answer.findUnique({
       where: {

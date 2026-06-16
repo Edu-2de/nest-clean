@@ -3,6 +3,7 @@ import { CurrentUser } from '@/infra/auth/current-user.decorator'
 import type { TokenPayload } from '@/infra/auth/jwt.strategy'
 import { BadRequestException, Controller, Delete, Param } from '@nestjs/common'
 
+//TODO: Nothing
 @Controller('/answers/:id')
 export class DeleteAnswerController {
   constructor(private deleteAnswerUseCase: DeleteAnswerUseCase) {}
