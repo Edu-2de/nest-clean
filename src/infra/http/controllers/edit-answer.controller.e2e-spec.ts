@@ -10,7 +10,7 @@ import { AnswerFactory } from '../../../../test/factories/make-answer'
 import { QuestionFactory } from '../../../../test/factories/make-question'
 import { StudentFactory } from '../../../../test/factories/make-student'
 
-describe('Edit Answer (E2E)', () => {
+describe('[PUT] Edit Answer (E2E)', () => {
   let app: INestApplication
   let studentFactory: StudentFactory
   let answerFactory: AnswerFactory
@@ -55,8 +55,8 @@ describe('Edit Answer (E2E)', () => {
 
     const answer = await answerFactory.makeAnswerPrismaFactory({
       authorId: userAnswerCreator.id,
-      content: 'content',
       questionId: question.id,
+      content: 'content',
     })
 
     const answerId = answer.id.toString()

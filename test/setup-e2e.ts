@@ -25,7 +25,7 @@ const prisma = new PrismaClient({ adapter })
 
 beforeAll(() => {
   execSync('pnpm prisma migrate deploy', { stdio: 'inherit' })
-})
+}, 60000)
 
 afterAll(async () => {
   await prisma.$executeRawUnsafe(`DROP SCHEMA IF EXISTS "${schemaId}" CASCADE`)
