@@ -3,8 +3,6 @@ import {
   QuestionAttachment,
   type QuestionAttachmentProps,
 } from '@/domain/forum/enterprise/entities/question-attachment.js'
-import { PrismaQuestionAttachmentMapper } from '@/infra/database/prisma/mappers/prisma-question-attachment-mapper'
-import { PrismaService } from '@/infra/database/prisma/prisma.service'
 
 export function makeQuestionAttachment(
   override: Partial<QuestionAttachmentProps> = {},

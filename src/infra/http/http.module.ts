@@ -1,11 +1,17 @@
 import { AnswerQuestionUseCase } from '@/domain/forum/application/use-cases/answer-question'
 import { AuthenticateStudentUseCase } from '@/domain/forum/application/use-cases/authenticate-student'
+import { ChoseQuestionBestAnswerUseCase } from '@/domain/forum/application/use-cases/chose-question-best-answer'
+import { CommentOnAnswerUseCase } from '@/domain/forum/application/use-cases/comment-on-answer'
+import { CommentOnQuestionUseCase } from '@/domain/forum/application/use-cases/comment-on-question'
 import { CreateQuestionUseCase } from '@/domain/forum/application/use-cases/create-question'
 import { DeleteAnswerUseCase } from '@/domain/forum/application/use-cases/delete-answer'
+import { DeleteAnswerCommentUseCase } from '@/domain/forum/application/use-cases/delete-comment-answer'
+import { DeleteQuestionCommentUseCase } from '@/domain/forum/application/use-cases/delete-comment-question'
 import { DeleteQuestionUseCase } from '@/domain/forum/application/use-cases/delete-question'
 import { EditAnswerUseCase } from '@/domain/forum/application/use-cases/edit-answer'
 import { EditQuestionUseCase } from '@/domain/forum/application/use-cases/edit-question'
 import { FetchQuestionAnswers } from '@/domain/forum/application/use-cases/fetch-question-answers'
+import { FetchQuestionComments } from '@/domain/forum/application/use-cases/fetch-question-comments'
 import { FetchRecentQuestionsUseCase } from '@/domain/forum/application/use-cases/fetch-recent-questions'
 import { GetQuestionBySlugUseCase } from '@/domain/forum/application/use-cases/get-question-by-slug'
 import { RegisterStudentUseCase } from '@/domain/forum/application/use-cases/register-student'
@@ -14,17 +20,22 @@ import { CryptographyModule } from '../cryptography/cryptography.module'
 import { DatabaseModule } from '../database/database.module'
 import { AnswerQuestionController } from './controllers/answer-question.controller'
 import { AuthenticateController } from './controllers/authenticate.controller'
+import { ChoseQuestionBestAnswerController } from './controllers/chose-question-best-answer.controller'
+import { CommentOnAnswerController } from './controllers/comment-on-answer.controller'
+import { CommentOnQuestionController } from './controllers/comment-on-question.controller'
 import { CreateAccountController } from './controllers/create-account.controller'
 import { CreateQuestionController } from './controllers/create-question.controller'
+import { DeleteAnswerCommentController } from './controllers/delete-answer-comment.controller'
 import { DeleteAnswerController } from './controllers/delete-answer.controller'
+import { DeleteQuestionCommentController } from './controllers/delete-question-comment.controller'
 import { DeleteQuestionController } from './controllers/delete-question.controller'
 import { EditAnswerController } from './controllers/edit-answer.controller'
 import { EditQuestionController } from './controllers/edit-question.controller'
 import { FetchQuestionAnswersController } from './controllers/fetch-question-answers.controller'
+import { FetchQuestionCommentsController } from './controllers/fetch-question-comments.controller'
 import { FetchRecentQuestionsController } from './controllers/fetch-recent-questions.controller'
 import { GetQuestionBySlugController } from './controllers/get-question-by-slug.controller'
-import { ChoseQuestionBestAnswerController } from './controllers/chose-question-best-answer.controller'
-import { ChoseQuestionBestAnswerUseCase } from '@/domain/forum/application/use-cases/chose-question-best-answer'
+import { UploadAttachmentsController } from './controllers/upload-attachment.controller'
 
 @Module({
   imports: [DatabaseModule, CryptographyModule],
@@ -41,6 +52,12 @@ import { ChoseQuestionBestAnswerUseCase } from '@/domain/forum/application/use-c
     DeleteAnswerController,
     FetchQuestionAnswersController,
     ChoseQuestionBestAnswerController,
+    CommentOnQuestionController,
+    DeleteQuestionCommentController,
+    CommentOnAnswerController,
+    DeleteAnswerCommentController,
+    FetchQuestionCommentsController,
+    UploadAttachmentsController,
   ],
   providers: [
     CreateQuestionUseCase,
@@ -55,6 +72,11 @@ import { ChoseQuestionBestAnswerUseCase } from '@/domain/forum/application/use-c
     DeleteAnswerUseCase,
     FetchQuestionAnswers,
     ChoseQuestionBestAnswerUseCase,
+    CommentOnQuestionUseCase,
+    DeleteQuestionCommentUseCase,
+    CommentOnAnswerUseCase,
+    DeleteAnswerCommentUseCase,
+    FetchQuestionComments,
   ],
 })
 export class HttpModule {}
