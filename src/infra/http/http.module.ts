@@ -15,9 +15,11 @@ import { FetchQuestionComments } from '@/domain/forum/application/use-cases/fetc
 import { FetchRecentQuestionsUseCase } from '@/domain/forum/application/use-cases/fetch-recent-questions'
 import { GetQuestionBySlugUseCase } from '@/domain/forum/application/use-cases/get-question-by-slug'
 import { RegisterStudentUseCase } from '@/domain/forum/application/use-cases/register-student'
+import { UploadAndCreateAttachmentUseCase } from '@/domain/forum/application/use-cases/upload-and-create-attachment'
 import { Module } from '@nestjs/common'
 import { CryptographyModule } from '../cryptography/cryptography.module'
 import { DatabaseModule } from '../database/database.module'
+import { StorageModule } from '../storage/storage.module'
 import { AnswerQuestionController } from './controllers/answer-question.controller'
 import { AuthenticateController } from './controllers/authenticate.controller'
 import { ChoseQuestionBestAnswerController } from './controllers/chose-question-best-answer.controller'
@@ -38,7 +40,7 @@ import { GetQuestionBySlugController } from './controllers/get-question-by-slug.
 import { UploadAttachmentsController } from './controllers/upload-attachment.controller'
 
 @Module({
-  imports: [DatabaseModule, CryptographyModule],
+  imports: [DatabaseModule, CryptographyModule, StorageModule],
   controllers: [
     CreateAccountController,
     AuthenticateController,
@@ -77,6 +79,7 @@ import { UploadAttachmentsController } from './controllers/upload-attachment.con
     CommentOnAnswerUseCase,
     DeleteAnswerCommentUseCase,
     FetchQuestionComments,
+    UploadAndCreateAttachmentUseCase,
   ],
 })
 export class HttpModule {}
