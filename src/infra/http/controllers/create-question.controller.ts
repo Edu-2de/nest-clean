@@ -8,6 +8,7 @@ import z from 'zod'
 const createQuestionBodySchema = z.object({
   title: z.string(),
   content: z.string(),
+  attachments: z.array(z.uuid()),
 })
 
 const bodyValidationPipe = new ZodValidationPipe(createQuestionBodySchema)
@@ -23,13 +24,13 @@ export class CreateQuestionController {
     @CurrentUser() user: TokenPayload,
     @Body(bodyValidationPipe) body: CreateQuestionBodySchema,
   ) {
-    const { title, content } = body
+    const { title, content, attachments } = body
     const userId = user.sub
     const result = await this.createQuestion.execute({
       title,
       content,
       authorId: userId,
-      attachmentsIds: [],
+      attachmentsIds: attachments,
     })
     if (result.isLeft()) {
       throw new BadRequestException()
