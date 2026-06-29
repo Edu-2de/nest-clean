@@ -3,24 +3,35 @@ import { makeAnswer } from '../../../../../test/factories/make-answer'
 import { makeQuestion } from '../../../../../test/factories/make-question'
 import { InMemoryAnswerAttachmentsRepository } from '../../../../../test/repositories/in-memory-answer-attachments-repository'
 import { InMemoryAnswersRepository } from '../../../../../test/repositories/in-memory-answers-repository'
+import { InMemoryAttachmentsRepository } from '../../../../../test/repositories/in-memory-attachments-repository'
 import { InMemoryQuestionAttachmentsRepository } from '../../../../../test/repositories/in-memory-question-attachments-repository'
 import { InMemoryQuestionsRepository } from '../../../../../test/repositories/in-memory-questions-repository'
+import { InMemoryStudentsRepository } from '../../../../../test/repositories/in-memory-students-repository'
 import { FetchQuestionAnswers } from './fetch-question-answers'
 
 let inMemoryQuestionsRepository: InMemoryQuestionsRepository
 let inMemoryAnswersRepository: InMemoryAnswersRepository
 let inMemoryQuestionAttachmentsRepository: InMemoryQuestionAttachmentsRepository
 let inMemoryAnswerAttachmentsRepository: InMemoryAnswerAttachmentsRepository
+let inMemoryAttachmentsRepository: InMemoryAttachmentsRepository
+let inMemoryStudentsRepository: InMemoryStudentsRepository
 let sut: FetchQuestionAnswers
 
 describe('Fetch Question Answer Use Case', () => {
   beforeEach(() => {
     inMemoryQuestionAttachmentsRepository =
       new InMemoryQuestionAttachmentsRepository()
+
     inMemoryAnswerAttachmentsRepository =
       new InMemoryAnswerAttachmentsRepository()
+
+    inMemoryAttachmentsRepository = new InMemoryAttachmentsRepository()
+    inMemoryStudentsRepository = new InMemoryStudentsRepository()
+
     inMemoryQuestionsRepository = new InMemoryQuestionsRepository(
       inMemoryQuestionAttachmentsRepository,
+      inMemoryAttachmentsRepository,
+      inMemoryStudentsRepository,
     )
     inMemoryAnswersRepository = new InMemoryAnswersRepository(
       inMemoryAnswerAttachmentsRepository,

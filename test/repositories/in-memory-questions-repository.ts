@@ -60,7 +60,7 @@ export class InMemoryQuestionsRepository implements QuestionsRepository {
 
     const questionAttachments = this.questionAttachmentsRepository.items.filter(
       (questionAttachment) => {
-        questionAttachment.questionId.equals(question.id)
+        return questionAttachment.questionId.equals(question.id)
       },
     )
 
@@ -88,7 +88,7 @@ export class InMemoryQuestionsRepository implements QuestionsRepository {
       createdAt: question.createdAt,
       updatedAt: question.updatedAt,
       bestAnswerId: question.bestAnswerId,
-      attachments,
+      attachments: attachments,
     })
   }
 

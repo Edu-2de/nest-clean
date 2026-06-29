@@ -4,8 +4,10 @@ import { makeAnswer } from '../../../../../test/factories/make-answer'
 import { makeQuestion } from '../../../../../test/factories/make-question'
 import { InMemoryAnswerAttachmentsRepository } from '../../../../../test/repositories/in-memory-answer-attachments-repository'
 import { InMemoryAnswersRepository } from '../../../../../test/repositories/in-memory-answers-repository'
+import { InMemoryAttachmentsRepository } from '../../../../../test/repositories/in-memory-attachments-repository'
 import { InMemoryQuestionAttachmentsRepository } from '../../../../../test/repositories/in-memory-question-attachments-repository'
 import { InMemoryQuestionsRepository } from '../../../../../test/repositories/in-memory-questions-repository'
+import { InMemoryStudentsRepository } from '../../../../../test/repositories/in-memory-students-repository'
 import { ChoseQuestionBestAnswerUseCase } from './chose-question-best-answer'
 import { NotAllowedError } from './errors/not-allowed-error'
 
@@ -13,16 +15,24 @@ let inMemoryQuestionRepository: InMemoryQuestionsRepository
 let inMemoryAnswersRepository: InMemoryAnswersRepository
 let inMemoryAnswerAttachmentsRepository: InMemoryAnswerAttachmentsRepository
 let inMemoryQuestionAttachmentsRepository: InMemoryQuestionAttachmentsRepository
+let inMemoryAttachmentsRepository: InMemoryAttachmentsRepository
+let inMemoryStudentsRepository: InMemoryStudentsRepository
 let sut: ChoseQuestionBestAnswerUseCase
 
 describe('Create Question', () => {
   beforeEach(() => {
     inMemoryAnswerAttachmentsRepository =
       new InMemoryAnswerAttachmentsRepository()
+
+    inMemoryAttachmentsRepository = new InMemoryAttachmentsRepository()
+    inMemoryStudentsRepository = new InMemoryStudentsRepository()
+
     inMemoryQuestionAttachmentsRepository =
       new InMemoryQuestionAttachmentsRepository()
     inMemoryQuestionRepository = new InMemoryQuestionsRepository(
       inMemoryQuestionAttachmentsRepository,
+      inMemoryAttachmentsRepository,
+      inMemoryStudentsRepository,
     )
     inMemoryAnswersRepository = new InMemoryAnswersRepository(
       inMemoryAnswerAttachmentsRepository,

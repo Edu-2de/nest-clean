@@ -2,6 +2,7 @@ import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 import { beforeEach, describe } from 'vitest'
 import { makeQuestionComment } from '../../../../../test/factories/make-question-comment'
 import { makeStudent } from '../../../../../test/factories/make-student'
+import { InMemoryAttachmentsRepository } from '../../../../../test/repositories/in-memory-attachments-repository'
 import { InMemoryQuestionAttachmentsRepository } from '../../../../../test/repositories/in-memory-question-attachments-repository'
 import { InMemoryQuestionCommentsRepository } from '../../../../../test/repositories/in-memory-question-comments-repository'
 import { InMemoryQuestionsRepository } from '../../../../../test/repositories/in-memory-questions-repository'
@@ -12,6 +13,7 @@ let inMemoryQuestionCommentsRepository: InMemoryQuestionCommentsRepository
 let inMemoryStudentsRepository: InMemoryStudentsRepository
 let inMemoryQuestionsRepository: InMemoryQuestionsRepository
 let inMemoryQuestionAttachmentsRepository: InMemoryQuestionAttachmentsRepository
+let inMemoryAttachmentsRepository: InMemoryAttachmentsRepository
 let sut: FetchQuestionComments
 
 describe('Fetch Question Answer Use Case', () => {
@@ -25,8 +27,12 @@ describe('Fetch Question Answer Use Case', () => {
       inMemoryStudentsRepository,
     )
 
+    inMemoryAttachmentsRepository = new InMemoryAttachmentsRepository()
+
     inMemoryQuestionsRepository = new InMemoryQuestionsRepository(
       inMemoryQuestionAttachmentsRepository,
+      inMemoryAttachmentsRepository,
+      inMemoryStudentsRepository,
     )
 
     sut = new FetchQuestionComments(inMemoryQuestionCommentsRepository)
