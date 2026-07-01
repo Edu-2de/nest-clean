@@ -1,8 +1,8 @@
+import { makeNotification } from '@/../test/factories/make-notification'
+import { InMemoryNotificationsRepository } from '@/../test/repositories/in-memory-notifications-repository'
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 import { NotAllowedError } from '@/domain/forum/application/use-cases/errors/not-allowed-error'
 import { describe, expect, it } from 'vitest'
-import { makeNotification } from '../../../../../test/factories/make-notification'
-import { InMemoryNotificationsRepository } from '../../../../../test/repositories/in-memory-notifications-repository'
 import { ReadNotificationUseCase } from './read-notification'
 
 let inMemoryNotificationsRepository: InMemoryNotificationsRepository
