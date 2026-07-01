@@ -10,6 +10,7 @@ import { DeleteQuestionCommentUseCase } from '@/domain/forum/application/use-cas
 import { DeleteQuestionUseCase } from '@/domain/forum/application/use-cases/delete-question'
 import { EditAnswerUseCase } from '@/domain/forum/application/use-cases/edit-answer'
 import { EditQuestionUseCase } from '@/domain/forum/application/use-cases/edit-question'
+import { FetchAnswerCommentsUseCase } from '@/domain/forum/application/use-cases/fetch-answer-comments'
 import { FetchQuestionAnswers } from '@/domain/forum/application/use-cases/fetch-question-answers'
 import { FetchQuestionComments } from '@/domain/forum/application/use-cases/fetch-question-comments'
 import { FetchRecentQuestionsUseCase } from '@/domain/forum/application/use-cases/fetch-recent-questions'
@@ -33,6 +34,7 @@ import { DeleteQuestionCommentController } from './controllers/delete-question-c
 import { DeleteQuestionController } from './controllers/delete-question.controller'
 import { EditAnswerController } from './controllers/edit-answer.controller'
 import { EditQuestionController } from './controllers/edit-question.controller'
+import { FetchAnswerCommentsController } from './controllers/fetch-answer-comments.controller'
 import { FetchQuestionAnswersController } from './controllers/fetch-question-answers.controller'
 import { FetchQuestionCommentsController } from './controllers/fetch-question-comments.controller'
 import { FetchRecentQuestionsController } from './controllers/fetch-recent-questions.controller'
@@ -60,6 +62,7 @@ import { UploadAttachmentsController } from './controllers/upload-attachment.con
     DeleteAnswerCommentController,
     FetchQuestionCommentsController,
     UploadAttachmentsController,
+    FetchAnswerCommentsController,
   ],
   providers: [
     CreateQuestionUseCase,
@@ -80,6 +83,7 @@ import { UploadAttachmentsController } from './controllers/upload-attachment.con
     DeleteAnswerCommentUseCase,
     FetchQuestionComments,
     UploadAndCreateAttachmentUseCase,
+    FetchAnswerCommentsUseCase,
   ],
 })
 export class HttpModule {}
