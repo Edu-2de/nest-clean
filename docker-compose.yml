@@ -20,6 +20,14 @@ services:
       - 'traefik.http.services.nest-clean.loadbalancer.server.port=3333'
       - 'traefik.docker.network=web'
 
+  cache:
+    container_name: nest-clean-cache
+    image: redis
+    ports:
+      - 6379:6379
+    volumes:
+      - ../data/redis:/data
+
 networks:
   web:
     external: true
