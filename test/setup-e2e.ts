@@ -1,8 +1,10 @@
 import { DomainEvents } from '@/core/events/domain-events'
 import { PrismaClient } from '@/generated/prisma/client'
+import { envSchema } from '@/infra/env/env'
 import { PrismaPg } from '@prisma/adapter-pg'
 import { config } from 'dotenv'
 import 'dotenv/config'
+import Redis from 'ioredis'
 import { execSync } from 'node:child_process'
 import { randomUUID } from 'node:crypto'
 
@@ -26,10 +28,21 @@ const adapter = new PrismaPg(
   { connectionString: process.env.DATABASE_URL },
   { schema: schemaId },
 )
+
+const env = envSchema.parse(process.env)
+
 const prisma = new PrismaClient({ adapter })
 
-beforeAll(() => {
+const redis = new Redis({
+  host: env.REDIS_HOST,
+  db: env.REDIS_DB,
+  port: env.REDIS_PORT,
+})
+
+beforeAll(async () => {
   DomainEvents.shouldRun = false
+
+  await redis.flushdb()
 
   execSync('pnpm prisma migrate deploy', { stdio: 'pipe' })
 }, 60000)
