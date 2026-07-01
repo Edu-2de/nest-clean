@@ -1,3 +1,4 @@
+import { DomainEvents } from '@/core/events/domain-events'
 import { PrismaClient } from '@/generated/prisma/client'
 import { PrismaPg } from '@prisma/adapter-pg'
 import { config } from 'dotenv'
@@ -28,7 +29,9 @@ const adapter = new PrismaPg(
 const prisma = new PrismaClient({ adapter })
 
 beforeAll(() => {
-  execSync('pnpm prisma migrate deploy', { stdio: 'inherit' })
+  DomainEvents.shouldRun = false
+
+  execSync('pnpm prisma migrate deploy', { stdio: 'pipe' })
 }, 60000)
 
 afterAll(async () => {

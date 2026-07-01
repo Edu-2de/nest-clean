@@ -1,3 +1,4 @@
+import { DomainEvents } from '@/core/events/domain-events'
 import { PaginationParams } from '@/core/repositories/pagination-params'
 import { AnswerAttachmentsRepository } from '@/domain/forum/application/repositories/answer-attachments-repository'
 import { AnswersRepository } from '@/domain/forum/application/repositories/answers-repository'
@@ -34,23 +35,29 @@ export class PrismaAnswersRepository implements AnswersRepository {
     })
     return answers.map(PrismaAnswerMapper.toDomain)
   }
+
   async save(answer: Answer): Promise<void> {
     const data = PrismaAnswerMapper.toPrisma(answer)
-    await this.prisma.answer.update({
-      where: {
-        id: data.id,
-      },
-      data,
-    })
 
-    await this.answerAttachmentsRepository.createMany(
-      answer.attachments.getNewItems(),
-    )
+    await Promise.all([
+      this.prisma.answer.update({
+        where: {
+          id: data.id,
+        },
+        data,
+      }),
 
-    await this.answerAttachmentsRepository.deleteMany(
-      answer.attachments.getRemovedItems(),
-    )
+      this.answerAttachmentsRepository.createMany(
+        answer.attachments.getNewItems(),
+      ),
+
+      this.answerAttachmentsRepository.deleteMany(
+        answer.attachments.getRemovedItems(),
+      ),
+    ])
+    DomainEvents.dispatchEventsForAggregate(answer.id)
   }
+
   async create(answer: Answer): Promise<void> {
     const data = PrismaAnswerMapper.toPrisma(answer)
     await this.prisma.answer.create({
@@ -60,6 +67,8 @@ export class PrismaAnswersRepository implements AnswersRepository {
     await this.answerAttachmentsRepository.createMany(
       answer.attachments.getItems(),
     )
+
+    DomainEvents.dispatchEventsForAggregate(answer.id)
   }
   async delete(answer: Answer): Promise<void> {
     const data = PrismaAnswerMapper.toPrisma(answer)
